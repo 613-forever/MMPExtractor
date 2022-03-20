@@ -22,7 +22,7 @@ CRs `\r` may break the bash files. It is recommended that git `autocrlf` be disa
 
 ### Sounds
 
-+ An external `ADX` and `AHX` converter (https://github.com/LemonHaze420/ahx2wav), if BGMs and voices are needed.
++ An external `ADX` and `AHX` converter (<https://github.com/LemonHaze420/ahx2wav>), if BGMs and voices are needed.
 
 ## Steps
 
