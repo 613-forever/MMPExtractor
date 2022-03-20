@@ -13,7 +13,7 @@ public:
 
   void loadFromMemory(const Memory& pngMemory, const uint32_t (&posMemory)[4]);
   void fill(const Memory& eyesMemory, const Memory& mouthMemory);
-  void write(Memory& out);
+  void write(Memory& out) const;
 private:
   cv::Mat buffer;
   int pos[4]{};
@@ -38,7 +38,7 @@ void PngBufferImpl::fill(const Memory& eyesMemory, const Memory& mouthMemory) {
 //  cv::waitKey();
 }
 
-void PngBufferImpl::write(Memory& out) {
+void PngBufferImpl::write(Memory& out) const {
   std::vector<int> params{cv::IMWRITE_PNG_COMPRESSION, 9};
   cv::imencode(".png", buffer, out, params);
 }
@@ -74,12 +74,12 @@ void PngBuffer::fill(const Memory& eyesMemory, const Memory& mouthMemory) {
   impl->fill(eyesMemory, mouthMemory);
 }
 
-void PngBuffer::write(const File& file) {
+void PngBuffer::write(const File& file) const {
   Memory buffer;
   write(buffer);
   file::write(file, buffer.data(), buffer.size());
 }
 
-void PngBuffer::write(Memory& out) {
+void PngBuffer::write(Memory& out) const {
   impl->write(out);
 }

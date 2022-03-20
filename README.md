@@ -4,26 +4,50 @@ An extractor for resources from disk image for a game, MMP for short.
 
 Note that paths to all external tools should be set manually in scripts.
 
-Short and ASCII-only directory name are preferred. (Long path might be cumbersome in some operating systems, and non-ASCII characters might cause weird encoding-related troubles.)
+Short and ASCII-only directory names are preferred. (Long path might be cumbersome in some operating systems, and non-ASCII characters might cause weird encoding-related troubles.)
 
 CRs `\r` may break the bash files. It is recommended that git `autocrlf` be disabled for this repo.
 
 ## Tools Required
 
-+ Specialized unpacker (https://github.com/613-forever/CriPakTools-specialized-for-mmp).
-+ `QuickBMS` (http://aluigi.altervista.org/quickbms.htm) is needed to unpack `PAC`s.
-+ A `GIM`-to-`PNG` convertor, e.g. `GIM2PNG`(In documentation, http://www.geocities.jp/junk2ool/ , currently seems to be https://junk2ool.net/tools/psx/start) is required.
+### General
+
++ Specialized unpacker (<https://github.com/613-forever/CriPakTools-specialized-for-mmp>).
+
+### Images
+
++ `QuickBMS` (<http://aluigi.altervista.org/quickbms.htm>) is needed to unpack `PAC`s.
++ A `GIM`-to-`PNG` converter, e.g. `GIM2PNG`(In the documentation, <http://www.geocities.jp/junk2ool/>, currently seems to be <https://junk2ool.net/tools/psx/start>) is required.
 + Other stand-alone tools (this repo). Used to extract `GIM`s from `CSB` files, handle 16-bit index `GIM` image, and assemble image parts into one image, respectively.
 
+### Sounds
+
++ An external `ADX` and `AHX` converter (https://github.com/LemonHaze420/ahx2wav), if BGMs and voices are needed.
+
 ## Steps
-1. Note that the script files is written for msys2, but it might also work in other *nix-like shells, such as WSL. (I do not suggest running on *nix just because I do not know C# language well and can not prove the CRI unpacker can work.)
-1. Mount the ISO, and an `archive.cpk` and an `install.cpk` lie in `/PSP_GAME/USRDIR`. Copy them into a directory `some_directory`.
+
+### Extracting Packages
+
+1. Note that the script files were written for msys2, but it might also work in other *nix-like shells, such as WSL. (I do not suggest running on *nix just because I do not know C# language well and can not prove the CRI unpacker can work.)
+1. Mount the ISO.
+
+### Images
+
+1. Find `archive.cpk` and `install.cpk` lie in `/PSP_GAME/USRDIR`. Copy them into a directory `some_directory`.
 1. Unpack them with this specialized unpacker extractor. That is, run `CriPakTool.exe xxx.cpk ALL`.
-1. Move `some_directory/install/CharaBustup` into a newly-created `pac` directory, for the files need assembling. Run `extract.sh` to extract and assemble them.
+1. Move `some_directory/install/CharaBustup` into a newly-created `pac` directory, for the files that need assembling. Run `extract.sh` to extract and assemble them.
 1. Run extracting script `extract2.sh` to extract `GIM` images and convert them into `PNG`s. A file named `error_files.txt` will be generated if some files are not successfully handled. (`GIM2PNG` can not handle 16-bit index images perfectly.)
 1. Run `extract3.sh` in the directory where `error_files.txt` is generated.
 
-## Tree
+### Sounds
+
+1. Also, music can be found within `/PSP_GAME/USRDIR/Sound/`.
+2. Copy them to an empty directory and use the converter for `Bgm` and `Voice`.
+
+## Dir Tree
+
+For images, it will look like this:
+
 ``` plain
 somedirectory
 |-- archive.cpk (copied)
