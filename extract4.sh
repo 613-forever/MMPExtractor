@@ -10,6 +10,8 @@ FILES=$(ls Voice)
 function handle_dir {
   if [[ -d Voice/$1 ]] ; then
     mkdir voice_wav/$1
+    mkdir voice_ogg/$1
+    # mkdir voice_flac/$1
   fi
   INNER_FILES=$(ls Voice/$1)
   for INNER_FILE in $INNER_FILES; do
@@ -19,10 +21,12 @@ function handle_dir {
       case "${INNER_FILE##*.}" in
         "wav")
           mv "Voice/$1/$INNER_FILE" "voice_wav/$1/$INNER_FILE"
-          $FFMPEG -y -hide_banner -i "voice_wav/$1/$INNER_FILE" -c:a libvorbis "voice_ogg/$1/${INNER_FILE%.*}.ogg"
+          $FFMPEG -y -hide_banner -i "voice_wav/$1/$INNER_FILE" -acodec libvorbis "voice_ogg/$1/${INNER_FILE%.*}.ogg"
+          # $FFMPEG -y -hide_banner -i "voice_wav/$1/$INNER_FILE" -acodec flac "voice_flac/$1/${INNER_FILE%.*}.ogg"
           ;;
         "adx")
-          $FFMPEG -y -hide_banner -i "Voice/$1/$INNER_FILE" -c:a libvorbis "voice_ogg/$1/${INNER_FILE}.ogg"
+          $FFMPEG -y -hide_banner -i "Voice/$1/$INNER_FILE" -acodec libvorbis "voice_ogg/$1/${INNER_FILE}.ogg"
+          # $FFMPEG -y -hide_banner -i "Voice/$1/$INNER_FILE" -acodec flac "voice_flac/$1/${INNER_FILE}.flac"
           ;;
       esac
     fi
