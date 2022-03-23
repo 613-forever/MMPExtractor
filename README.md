@@ -22,7 +22,13 @@ CRs `\r` may break the bash files. It is recommended that git `autocrlf` be disa
 
 ### Sounds
 
-+ An external `ADX` and `AHX` converter (<https://github.com/LemonHaze420/ahx2wav>), if BGMs and voices are needed.
++ An external `AHX` converter (<https://github.com/LemonHaze420/ahx2wav>), if voices are needed.
++ `ADX` can be handled by `ffmpeg`, if BGMs are needed.
++ Note that skill voices and cut scene when bosses appear and are destroyed are in format `ADX`.
+
+### Movies
+
++ An external `PMF` converter (<https://github.com/TeamPBCN/pmftools>).
 
 ## Steps
 
@@ -42,7 +48,12 @@ CRs `\r` may break the bash files. It is recommended that git `autocrlf` be disa
 ### Sounds
 
 1. Also, music can be found within `/PSP_GAME/USRDIR/Sound/`.
-2. Copy them to an empty directory and use the converter for `Bgm` and `Voice`.
+2. Copy them to an empty directory and use the converter for `Bgm` and `Voice`, that it `extract4.sh` and `extract6.sh`.
+
+### Movies
+
+1. Cut scene movies can be found with `/PSP_GAME/USR/DIR/Movies`, in `pmf` format.
+2. Follow the instruction of `pmftools`. (Move them into `/input/pmf/` and run `pmf_to_mp4.bat`.)
 
 ## Dir Tree
 

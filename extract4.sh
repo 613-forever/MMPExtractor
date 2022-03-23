@@ -1,5 +1,6 @@
 #!/usr/bin/sh
 
+FFMPEG=ffmpeg
 AHX2WAV=ahx2wav.exe
 
 $AHX2WAV -b Voice/
@@ -18,6 +19,10 @@ function handle_dir {
       case "${INNER_FILE##*.}" in
         "wav")
           mv "Voice/$1/$INNER_FILE" "voice_wav/$1/$INNER_FILE"
+          $FFMPEG -y -hide_banner -i "voice_wav/$1/$INNER_FILE" -c:a libvorbis "voice_ogg/$1/${INNER_FILE%.*}.ogg"
+          ;;
+        "adx")
+          $FFMPEG -y -hide_banner -i "Voice/$1/$INNER_FILE" -c:a libvorbis "voice_ogg/$1/${INNER_FILE}.ogg"
           ;;
       esac
     fi
